@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const router = require("express").Router();
 
 router.get("/seed", async (req, res) => {
   try {
@@ -38,3 +39,5 @@ router.get("/seed", async (req, res) => {
     res.status(500).json({ error: "Erro ao criar seed" });
   }
 });
+
+module.exports = router;
