@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { PrismaClient } = require("@prisma/client");
 const multer = require("multer");
 const auth = require("../middleware/auth");
-const cloudinary = require("../config/cloudinary"); // 👈 IMPORTANTE
+const cloudinary = require("../cloudinary"); // 👈 IMPORTANTE
 const fs = require("fs"); // 👈 pra deletar arquivo depois
 
 const prisma = new PrismaClient();
