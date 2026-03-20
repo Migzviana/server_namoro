@@ -51,7 +51,24 @@ router.post("/memories", auth, upload.single("image"), async (req, res) => {
       fs.unlinkSync(req.file.path);
     }
 
-    router.get("/memories/:month", auth, async (req, res) => {
+    const memory = await prisma.memory.create({
+      data: {
+        message: text || "",
+        month: parsedMonth,
+        imageUrl,
+        authorId: req.user.id,
+        coupleId: user.coupleId,
+      },
+    });
+
+    res.json(memory);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao criar memória" });
+  }
+});
+
+router.get("/memories/:month", auth, async (req, res) => {
       try {
         const month = parseInt(req.params.month);
 
@@ -75,22 +92,5 @@ router.post("/memories", auth, upload.single("image"), async (req, res) => {
         res.status(500).json({ error: "Erro ao buscar memórias" });
       }
     });
-
-    const memory = await prisma.memory.create({
-      data: {
-        message: text || "",
-        month: parsedMonth,
-        imageUrl,
-        authorId: req.user.id,
-        coupleId: user.coupleId,
-      },
-    });
-
-    res.json(memory);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Erro ao criar memória" });
-  }
-});
 
 module.exports = router;
