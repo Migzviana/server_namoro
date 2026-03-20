@@ -41,13 +41,11 @@ router.post("/memories", auth, upload.single("image"), async (req, res) => {
 
     let imageUrl = null;
 
-    // 🔥 UPLOAD PRO CLOUDINARY
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path);
 
       imageUrl = result.secure_url;
 
-      // 🧹 remove arquivo local depois do upload
       fs.unlinkSync(req.file.path);
     }
 
