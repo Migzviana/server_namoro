@@ -34,7 +34,8 @@ model Couple {
 model Memory {
   id        Int      @id @default(autoincrement())
   message   String?
-  imageUrl  String?
+  mediaUrl  String?
+  mediaType String?
   month     Int
   createdAt DateTime @default(now())
 
